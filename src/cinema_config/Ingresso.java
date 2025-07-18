@@ -1,4 +1,4 @@
-package cinema_config;
+package Cinema_config;
 
 public class Ingresso {
     private String pessoa;
