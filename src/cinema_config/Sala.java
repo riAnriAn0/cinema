@@ -31,12 +31,14 @@ public class Sala {
     }
 
     public void initSala() {
-        char[] fileiera = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'};
+        char fileiera = 'A';
         for (int i = 0; i < assentos.length; i++) {
             for (int j = 0; j < assentos[i].length; j++) {
-                assentos[i][j] = new Assento(j + 1, fileiera[i]);
+                assentos[i][j] = new Assento(j + 1, fileiera);
             }
+            fileiera++;
         }
+
     }
 
     public void showAssentos() {
@@ -49,7 +51,7 @@ public class Sala {
         for (int i = 0; i < MAX_LINHAS; i++) {
             System.out.print(fileiera + " ->  |");
             for (int j = 0; j < MAX_COLUNAS; j++) {
-                System.out.print( assentos[i][j].getStatus() ? " [XX]" : " [  ]");
+                System.out.print(assentos[i][j].getStatus() ? " [XX]" : " [  ]");
             }
             System.out.print(" |");
             System.out.print("\n");

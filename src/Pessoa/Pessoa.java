@@ -1,4 +1,4 @@
-package Cliente;
+package Pessoa;
 
 public class Pessoa {
     private String nome;
