@@ -1,6 +1,8 @@
 package Cinema_config;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import Pessoa.Cliente;
 
 public class Cinema {
     private String nome;
@@ -32,6 +34,56 @@ public class Cinema {
                 }
             }
         }
+    }
+
+    public Cliente cadastraCliente() {
+        String nome, categoria;
+        int idade;
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      |              Cadastro de Cliente          |");
+        System.out.println("      +-------------------------------------------+");
+        System.out.print("| Digite o nome do cliente: ");
+        nome = scanner.nextLine();
+        System.out.print("| Digite a categoria do cliente (Professor, Normal, Estudante): ");
+        categoria = scanner.nextLine();
+        System.out.print("| Digite a idade do cliente: ");
+        idade = Integer.parseInt(scanner.nextLine());
+        Cliente cliente = new Cliente(nome, categoria, idade);
+        System.out.println("      +-------------------------------------------+");
+        scanner.close();
+
+        return cliente;
+
+    }
+
+    public Filme SelecionarFilme() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      |           Selecione um Filme              |");
+        listarFilmes();
+        if (filmes.isEmpty()) {
+            System.out.println("      !!! Nenhum filme disponível.");
+            scanner.close();
+            return null;
+        }
+
+        System.out.print("| Digite o título do filme desejado: ");
+        String nomeFilme = scanner.nextLine();
+        for (Filme filme : filmes) {
+            if (filme.getTitulo().equalsIgnoreCase(nomeFilme)) {
+                scanner.close();
+                return filme;
+            }
+        }
+        System.out.println("      !!! Filme inválido.");
+        scanner.close();
+        return null;
+    }
+
+    public void comprarIngresso(Cliente cliente, Sala sala, Assento assento) {
+        
     }
 
 }

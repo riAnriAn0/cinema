@@ -3,12 +3,17 @@ import Sistema.Menu;
 import Sistema.SisteMenus;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Pessoa.Admin;
 
 public class App {
     public static void main(String[] args) throws Exception {
-
+        
         // Criando o cinema
+
         Cinema cinema = new Cinema("Absolute Cinema");
+
+        //Admin Dono do cinema
+        Admin donoCinema = new Admin("Rian", "Admin", 20, "rian123", "senha123", cinema);
       
         // Criando os menus
         Menu menuPrincipal = new Menu("Menu Principal", 4, new String[] {
@@ -38,7 +43,7 @@ public class App {
         menus.add(menuGerenciarPessoas);
 
         // Criando o sistema de menus
-        SisteMenus sistemaMenus = new SisteMenus(menus, cinema);
+        SisteMenus sistemaMenus = new SisteMenus(menus, donoCinema);
 
         // Adicionando filmes de exemplo
         Filme filme1 = new Filme("Avatar", "James Cameron", "Aventura/Sci-Fi", 180,

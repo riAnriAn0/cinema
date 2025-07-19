@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Cinema_config.Cinema;
+import Pessoa.Admin;
 
 public class SisteMenus {
     private ArrayList<Menu> menus;
-    private Cinema cinema;
+    private Admin donoCinema;
 
-    public SisteMenus(ArrayList<Menu> menus, Cinema cinema) {
+    public SisteMenus(ArrayList<Menu> menus, Admin donoCinema) {
         this.menus = menus;
-        this.cinema = cinema;
+        this.donoCinema = donoCinema;
     }
 
     public void initSistema() {
+
+        Cinema cinema = donoCinema.getCinema();
+
         int op = -1;
         // Scanner scanner = new Scanner(System.in);
         while (op != 0) {
