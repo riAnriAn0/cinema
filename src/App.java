@@ -7,14 +7,7 @@ import Pessoa.Admin;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        
-        // Criando o cinema
 
-        Cinema cinema = new Cinema("Absolute Cinema");
-
-        //Admin Dono do cinema
-        Admin donoCinema = new Admin("Rian", "Admin", 20, "rian123", "senha123", cinema);
-      
         // Criando os menus
         Menu menuPrincipal = new Menu("Menu Principal", 4, new String[] {
                 "Filmes Em Cartaz",
@@ -42,20 +35,17 @@ public class App {
         menus.add(menuGerenciarCinema);
         menus.add(menuGerenciarPessoas);
 
-        // Criando o sistema de menus
-        SisteMenus sistemaMenus = new SisteMenus(menus, donoCinema);
-
         // Adicionando filmes de exemplo
         Filme filme1 = new Filme("Avatar", "James Cameron", "Aventura/Sci-Fi", 180,
-                "A história de um ex-fuzileiro que se junta a uma tribo alienígena em Pandora.");
+                "A história de um ex-fuzileiro que se junta a uma tribo alienígena em Pandora.", 1);
         Filme filme2 = new Filme("Inception", "Christopher Nolan", "Aventura/Sci-Fi", 148,
-                "Um ladrão que invade os sonhos das pessoas para roubar segredos.");
+                "Um ladrão que invade os sonhos das pessoas para roubar segredos.", 2);
         Filme filme3 = new Filme("The Godfather", "Francis Ford Coppola", "Crime/Drama", 175,
-                "A saga da família mafiosa Corleone na América dos anos 40 e 50.");
+                "A saga da família mafiosa Corleone na América dos anos 40 e 50.", 3);
         Filme filme4 = new Filme("The Dark Knight", "Christopher Nolan", "Ação/Crime", 152,
-                "Batman enfrenta o Coringa em Gotham City.");
+                "Batman enfrenta o Coringa em Gotham City.", 4);
         Filme filme5 = new Filme("Pulp Fiction", "Quentin Tarantino", "Crime/Drama", 154,
-                "Histórias interligadas de criminosos em Los Angeles.");
+                "Histórias interligadas de criminosos em Los Angeles.", 5);
         Filme filme6 = new Filme("The Shawshank Redemption", "Frank Darabont", "Drama", 142,
                 "A amizade entre dois prisioneiros em Shawshank.");
         Filme filme7 = new Filme("Forrest Gump", "Robert Zemeckis", "Drama/Romance", 142,
@@ -74,6 +64,18 @@ public class App {
         filme4.setDisponiveis(true);
         filme5.setDisponiveis(true);
         
+        //Criando Salas
+        Sala sala1 = new Sala(1, filme1);
+        Sala sala2 = new Sala(2, filme2);
+        Sala sala3 = new Sala(3, filme3);
+        Sala sala4 = new Sala(4, filme4);
+        Sala sala5 = new Sala(5, filme5);
+
+        Sala[] salas = { sala1, sala2, sala3, sala4, sala5 };
+        
+        // Criando o cinema
+        Cinema cinema = new Cinema("Absolute Cinema", salas);
+        
         // Adicionando filmes ao cinema
         cinema.addFilme(filme1);
         cinema.addFilme(filme2);
@@ -85,6 +87,12 @@ public class App {
         cinema.addFilme(filme8);
         cinema.addFilme(filme9);
         cinema.addFilme(filme10);
+
+        //Admin Dono do cinema
+        Admin donoCinema = new Admin("Rian", "Admin", 20, "rian123", "senha123", cinema);
+
+        // Criando o sistema de menus
+        SisteMenus sistemaMenus = new SisteMenus(menus, donoCinema);
 
         // Iniciando o sistema de menus
         sistemaMenus.initSistema();

@@ -3,14 +3,16 @@ package Cinema_config;
 import Pessoa.Pessoa;
 
 public class Ingresso {
+    private double preco;
     private Pessoa pessoa;
     private Sala sala;
     private Assento assento;
 
-    public Ingresso(Pessoa pessoa, Sala sala, Assento assento) {
+    public Ingresso(Pessoa pessoa, Sala sala, Assento assento, double preco) {
         this.pessoa = pessoa;
         this.sala = sala;
         this.assento = assento;
+        this.preco = preco;
     }
 
     public Pessoa getPessoa() {
@@ -37,12 +39,21 @@ public class Ingresso {
         this.assento = assento;
     }
 
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
     public void mostrarIngresso() {
         System.out.println("      +-------------------------------------------+");
         System.out.println("      |                  Ingresso                 |");
         System.out.println("      +-------------------------------------------+");
-        System.out.println("      |  Pessoa: " + pessoa.getNome());
-        System.out.println("      |   Sala: " + sala.getNumSala());
+        System.out.println("      |  Cliente: " + pessoa.getNome());
+        System.out.println("      |  Filme: " + sala.getFilme().getTitulo());
+        System.out.println("      |  Sala: " + sala.getNumSala());
         System.out.println("      |  Assento: " + assento.localizacao());
         System.out.println("      +-------------------------------------------+");
     }

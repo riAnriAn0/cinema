@@ -1,10 +1,9 @@
 package Sistema;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import Cinema_config.Cinema;
-import Pessoa.Admin;
+import Cinema_config.*;
+import Pessoa.*;
 
 public class SisteMenus {
     private ArrayList<Menu> menus;
@@ -35,7 +34,31 @@ public class SisteMenus {
                     initSistema();
                     break;
                 case 2:
-                    // Chamar método para comprar ingresso
+                    Menu.limparTela();
+                    Cliente cliente = cinema.cadastraCliente();
+                    Sala sala = null;
+                    Assento assento = null;
+                    do{
+                        Menu.limparTela();
+                        sala = cinema.selecionarSala();
+                    }while (sala == null);
+                    do {
+                        Menu.limparTela();
+                        sala.showAssentos();
+                        assento = cinema.selecionarAssento(sala);
+
+                    } while (assento == null);
+
+                    Ingresso ingresso = cinema.comprarIngresso(cliente, sala, assento);
+                    Menu.mostrarMensagem("      Ingresso comprado com sucesso! \n");
+
+                    Menu.limparTela();
+                    ingresso.mostrarIngresso();
+                    Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                    menus.get(0).obterOpcao();
+                    Menu.limparTela();
+                    initSistema();
+
                     break;
                 case 3:
                     // Chamar método para gerenciar cinema

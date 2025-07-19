@@ -7,6 +7,17 @@ public class Filme {
     private String diretor;
     private String sinopse;
     private boolean disponiveis;
+    private int sala;
+
+    public Filme(String titulo, String diretor, String genero, int duracao, String sinopse, int sala) {
+        this.titulo = titulo;
+        this.duracao = duracao;
+        this.genero = genero;
+        this.diretor = diretor;
+        this.sinopse = sinopse;
+        this.disponiveis = false;
+        this.sala = sala;
+    }
 
     public Filme(String titulo, String diretor, String genero, int duracao, String sinopse) {
         this.titulo = titulo;
@@ -67,7 +78,7 @@ public class Filme {
 
     public void showFilme() {
         System.out.println("      +---------------------------------------------------+");
-        System.out.printf("      |                  %s                 %n", titulo);
+        System.out.printf("      |                  %s         SALA: %2d       %n", titulo, sala);
         System.out.println("      +---------------------------------------------------+");
         System.out.println("      | Diretor: " + diretor);
         System.out.println("      | Gênero: " + genero);
