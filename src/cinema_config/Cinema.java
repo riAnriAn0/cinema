@@ -23,6 +23,10 @@ public class Cinema {
         filmes.add(filme);
     }
 
+    public void addIngresso(Ingresso ingresso) {
+        ingressosVendidos.add(ingresso);
+    }
+
     public void listarFilmes() {
         if (filmes.isEmpty()) {
             System.out.println("Nenhum filme cadastrado.");
@@ -45,11 +49,12 @@ public class Cinema {
         System.out.println("      +-------------------------------------------+");
         System.out.println("      |              Cadastro de Cliente          |");
         System.out.println("      +-------------------------------------------+");
-        System.out.print("| Digite o nome do cliente: ");
+        System.out.print("      | Digite o nome do cliente: ");
         nome = scanner.nextLine();
-        System.out.print("| Digite a categoria do cliente (Professor, Normal, Estudante): ");
+        System.out.print("      | Digite a categoria do cliente (Professor, Normal, Estudante): ");
         categoria = scanner.nextLine();
-        System.out.print("| Digite a idade do cliente: ");
+        System.out.print(
+                "      | Digite a idade do cliente: "); ///////////////////////////////////////////////// TRATAR EXCEÇÃO DE TIPO DE DADOS 
         idade = Integer.parseInt(scanner.nextLine());
         Cliente cliente = new Cliente(nome, categoria, idade);
         System.out.println("      +-------------------------------------------+");
@@ -66,7 +71,7 @@ public class Cinema {
             System.out.printf("      | Sala %d: %s%n", sala.getNumSala(), sala.getFilme().getTitulo());
             System.out.println("      +-------------------------------------------+");
         }
-        System.out.print("| Digite o número da sala desejada: ");
+        System.out.print("      | Digite o número da sala desejada: ");
         int numeroSala = Integer.parseInt(scanner.nextLine());
         if (numeroSala < 1 || numeroSala > salas.length) {
             System.out.println("      !!! Sala inválida. Deve ser entre 1 e " + salas.length + ".");
@@ -76,27 +81,28 @@ public class Cinema {
     }
 
     public Assento selecionarAssento(Sala sala) {
-
-        sala.showAssentos();
-        System.out.print("| Digite a fileira do assento (A - T): ");
+        System.out.print("      | Digite a fileira do assento (A - T): ");
         char fileira = scanner.nextLine().toUpperCase().charAt(0);
         if (fileira < 'A' || fileira > 'T') {
             System.out.println("      !!! Fileira inválida. Deve ser entre A e T.");
             return null;
         }
-        
-        System.out.print("| Digite o número do assento (1 - 10): ");
-        int numeroAssento = Integer.parseInt(scanner.nextLine())
+
+        System.out.print("      | Digite o número do assento (1 - 10): ");
+        int numeroAssento = Integer.parseInt(scanner.nextLine());
         if (numeroAssento < 1 || numeroAssento > 10) {
             System.out.println("      !!! Número do assento inválido. Deve ser entre 1 e 10.");
             return null;
         }
-        
-        if(sala.getAssento(fileira, numeroAssento).getStatus()) {
+
+        if (sala.getAssento(fileira, numeroAssento).getStatus()) {
             System.out.println("      !!! Assento já está ocupado.");
             return null;
         }
-        return sala.getAssento(fileira, numeroAssento);
+
+        Assento a = sala.getAssento(fileira, numeroAssento);
+        a.setStatus(true);
+        return a;
     }
 
     public Ingresso comprarIngresso(Cliente cliente, Sala sala, Assento assento) {
@@ -111,16 +117,18 @@ public class Cinema {
         System.out.printf("      | Sala: %d%n", sala.getNumSala());
         System.out.printf("      | Assento: %s%n", assento.localizacao());
 
+        System.out.println("      | Valor --------------------------- R$ 22.00");
         if (cliente.getCategoria().equalsIgnoreCase("Professor")) {
-            System.out.println("      | Desconto: 30%");
+            System.out.println("      | Desconto: --------------------------- 30%");
         } else if (cliente.getCategoria().equalsIgnoreCase("Estudante")) {
-            System.out.println("      | Desconto: 50%");
+            System.out.println("      | Desconto: --------------------------- 50%");
         } else if (cliente.getCategoria().equalsIgnoreCase("Idoso")) {
-            System.out.println("      | Desconto: 100%");
+            System.out.println("      | Desconto: ------------------------- 100%");
         } else {
-            System.out.println("      | Desconto: 0%");
+            System.out.println("      | Desconto: ----------------------------- 0%");
         }
-        System.out.printf("      | Valor do ingresso: R$ %.2f%n", ingresso.getPreco() * (1 - cliente.getDesconto()));
+        System.out.printf("      | Valor do ingresso: -------------- R$ %.2f%n",
+                ingresso.getPreco() * (1 - cliente.getDesconto()));
         System.out.println("      +-------------------------------------------+");
 
         return ingresso;

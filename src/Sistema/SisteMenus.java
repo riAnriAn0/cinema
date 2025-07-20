@@ -49,13 +49,24 @@ public class SisteMenus {
 
                     } while (assento == null);
 
-                    Ingresso ingresso = cinema.comprarIngresso(cliente, sala, assento);
-                    Menu.mostrarMensagem("      Ingresso comprado com sucesso! \n");
-
                     Menu.limparTela();
-                    ingresso.mostrarIngresso();
+                    Ingresso ingresso = cinema.comprarIngresso(cliente, sala, assento);
+                    if (ingresso == null) {
+                        Menu.mostrarMensagem("      !!! Não foi possível comprar o ingresso.");
+                        Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                        menus.get(0).obterOpcao();
+                        Menu.limparTela();
+                        initSistema();
+                        break;
+                    }
+                
+                    cinema.addIngresso(ingresso);
+
+                    Menu.mostrarMensagem("      Ingresso comprado com sucesso! \n");
                     Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                    
                     menus.get(0).obterOpcao();
+                    
                     Menu.limparTela();
                     initSistema();
 
