@@ -22,14 +22,14 @@ public class SisteMenus {
         // Scanner scanner = new Scanner(System.in);
         while (op != 0) {
             Menu.limparTela();  
-            menus.get(0).mostrarMenu();
-            op = menus.get(0).obterOpcao();
+            menus.getFirst().mostrarMenu();
+            op = menus.getFirst().obterOpcao();
             switch (op) {
                 case 1:
                     Menu.limparTela();
                     cinema.listarFilmes();
                     Menu.mostrarMensagem("      Pressione 0 para voltar...");
-                    menus.get(0).obterOpcao();
+                    menus.getFirst().obterOpcao();
                     Menu.limparTela();
                     initSistema();
                     break;

@@ -54,7 +54,7 @@ public class Cinema {
         System.out.print("      | Digite a categoria do cliente (Professor, Normal, Estudante): ");
         categoria = scanner.nextLine();
         System.out.print(
-                "      | Digite a idade do cliente: "); ///////////////////////////////////////////////// TRATAR EXCEÇÃO DE TIPO DE DADOS 
+                "      | Digite a idade do cliente: "); 
         idade = Integer.parseInt(scanner.nextLine());
         Cliente cliente = new Cliente(nome, categoria, idade);
         System.out.println("      +-------------------------------------------+");
