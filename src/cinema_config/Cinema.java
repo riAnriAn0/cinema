@@ -1,8 +1,10 @@
 package Cinema_config;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import Pessoa.Cliente;
+import Sistema.Menu;
 
 public class Cinema {
     private String nome;
@@ -21,6 +23,33 @@ public class Cinema {
 
     public void addFilme(Filme filme) {
         filmes.add(filme);
+    }
+
+    public void removerFilme(Filme filme) {
+        filmes.remove(filme);
+    }
+
+    public void listarSalas() {
+        System.out.println("      +---------------------------------------------------+");
+        System.out.println("      |                  Salas do Cinema                  |");
+        for (Sala sala : salas) {
+            System.out.printf("      | Sala %d: %s%n", sala.getNumSala(), sala.getFilme().getTitulo());
+            System.out.println("      +---------------------------------------------------+");
+        }
+    }
+
+    public Filme buscarFilme() {
+        System.out.println("      +---------------------------------------------------+");
+        System.out.println("      |                  Busca de Filme                   |");
+        System.out.println("      +---------------------------------------------------+");
+        System.out.print("      | Digite o título do filme: ");
+        String titulo = scanner.nextLine();
+        for (Filme filme : filmes) {
+            if (filme.getTitulo().equalsIgnoreCase(titulo)) {
+                return filme;
+            }
+        }
+        return null;
     }
 
     public void addIngresso(Ingresso ingresso) {
@@ -45,20 +74,32 @@ public class Cinema {
     public Cliente cadastraCliente() {
         String nome, categoria;
         int idade;
+        boolean continueInput = false;
+        Cliente cliente = null;
 
-        System.out.println("      +-------------------------------------------+");
-        System.out.println("      |              Cadastro de Cliente          |");
-        System.out.println("      +-------------------------------------------+");
-        System.out.print("      | Digite o nome do cliente: ");
-        nome = scanner.nextLine();
-        System.out.print("      | Digite a categoria do cliente (Professor, Normal, Estudante): ");
-        categoria = scanner.nextLine();
-        System.out.print(
-                "      | Digite a idade do cliente: "); 
-        idade = Integer.parseInt(scanner.nextLine());
-        Cliente cliente = new Cliente(nome, categoria, idade);
-        System.out.println("      +-------------------------------------------+");
+        do {
+            try {
+                System.out.println("      +-------------------------------------------+");
+                System.out.println("      |              Cadastro de Cliente          |");
+                System.out.println("      +-------------------------------------------+");
+                System.out.print("      | Digite o nome do cliente: ");
+                nome = scanner.nextLine();
+                System.out.print("      | Digite a categoria do cliente (Professor, Normal, Estudante): ");
+                categoria = scanner.nextLine();
+                System.out.print(
+                        "      | Digite a idade do cliente: ");
+                idade = Integer.parseInt(scanner.nextLine());
+                cliente = new Cliente(nome, categoria, idade);
+                System.out.println("      +-------------------------------------------+");
 
+            } catch (InputMismatchException e) {
+                System.out.println("      !!! Entrada inválida. Tente novamente.");
+                scanner.nextLine();
+                continueInput = true;
+                Menu.limparTela();
+                continue;
+            }
+        } while (continueInput);
         return cliente;
 
     }
@@ -133,4 +174,63 @@ public class Cinema {
 
         return ingresso;
     }
+
+    public Filme cadastrarFilme() throws InputMismatchException {
+        String titulo = null, diretor = null, genero = null, sinopse = null;
+        int duracao = 0;
+        boolean continueInput = true;
+
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      |              Cadastro de Filme            |");
+        System.out.println("      +-------------------------------------------+");
+        do {
+            try {
+                System.out.print("      | Digite o título do filme: ");
+                titulo = scanner.nextLine();
+                System.out.print("      | Digite o gênero do filme: ");
+                genero = scanner.nextLine();
+                System.out.print("      | Digite o diretor do filme: ");
+                diretor = scanner.nextLine();
+                System.out.print("      | Digite a duração do filme (em MIN): ");
+                duracao = scanner.nextInt();
+                System.out.print("      | Digite a sinopse do filme: ");
+                sinopse = scanner.nextLine();
+
+            } catch (InputMismatchException e) {
+                System.out.println("      !!! Entrada inválida. Tente novamente.");
+                scanner.nextLine();
+                Menu.limparTela();
+                continueInput = true;
+                continue;
+            }
+        } while (continueInput);
+        scanner.nextLine();
+
+        Filme filme = new Filme(titulo, diretor, genero, duracao, sinopse);
+
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      | Filme cadastrado com sucesso!            |");
+        System.out.println("      +-------------------------------------------+");
+
+        return filme;
+    }
+
+    public void historicoVendas() {
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      |           Histórico de Vendas             |");
+        System.out.println("      +-------------------------------------------+");
+        if (ingressosVendidos.isEmpty()) {
+            System.out.println("      | Nenhum ingresso vendido até o momento.   |");
+        } else {
+            for (Ingresso ingresso : ingressosVendidos) {
+                System.out.printf("      | Cliente: %s, Filme: %s, Sala: %d, Assento: %s%n",
+                        ingresso.getPessoa().getNome(),
+                        ingresso.getSala().getFilme().getTitulo(),
+                        ingresso.getSala().getNumSala(),
+                        ingresso.getAssento().localizacao());
+            }
+        }
+        System.out.println("      +-------------------------------------------+");
+    }
+
 }

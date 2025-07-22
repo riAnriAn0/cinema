@@ -15,8 +15,9 @@ public class App {
                 "Gerenciar Cinema",
                 "Gerenciar Pessoas",
         }, new Scanner(System.in));
-        Menu menuGerenciarCinema = new Menu("Gerenciar Cinema", 5, new String[] {
+        Menu menuGerenciarCinema = new Menu("Gerenciar Cinema", 6, new String[] {
                 "Adicionar Filme",
+                "Remover Filme",
                 "Listar Filmes",
                 "Listar Salas",
                 "Historico de vendas",
