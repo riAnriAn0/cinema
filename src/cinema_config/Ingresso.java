@@ -1,26 +1,25 @@
 package Cinema_config;
 
-import Pessoa.Pessoa;
+import Pessoa.Cliente;
 
 public class Ingresso {
-    private double preco;
-    private Pessoa pessoa;
+    private static final double PRECO = 22.00;
+    private Cliente cliente;
     private Sala sala;
     private Assento assento;
 
-    public Ingresso(Pessoa pessoa, Sala sala, Assento assento, double preco) {
-        this.pessoa = pessoa;
+    public Ingresso(Cliente cliente, Sala sala, Assento assento) {
+        this.cliente = cliente;
         this.sala = sala;
         this.assento = assento;
-        this.preco = preco;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Sala getSala() {
@@ -40,18 +39,14 @@ public class Ingresso {
     }
 
     public double getPreco() {
-        return preco;
+        return PRECO;
     }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
+    
     public void mostrarIngresso() {
         System.out.println("      +-------------------------------------------+");
         System.out.println("      |                  Ingresso                 |");
         System.out.println("      +-------------------------------------------+");
-        System.out.println("      |  Cliente: " + pessoa.getNome());
+        System.out.println("      |  Cliente: " + cliente.getNome());
         System.out.println("      |  Filme: " + sala.getFilme().getTitulo());
         System.out.println("      |  Sala: " + sala.getNumSala());
         System.out.println("      |  Assento: " + assento.localizacao());

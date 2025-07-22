@@ -1,5 +1,7 @@
 package Sistema;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import Cinema_config.*;
@@ -74,8 +76,15 @@ public class SisteMenus {
                 break;
 
             case 6:
+                LocalTime horaAtual = LocalTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                 Menu.limparTela();
-                donoCinema.getCinema().gerarRelatorio();
+
+                Relatorio relatorio = new Relatorio("Relatorio de vendas", new java.util.Date().toString(), horaAtual.format(formatter), donoCinema.getCinema().getValorTotal(), donoCinema.getCinema().getIngressosVendidos());
+
+                relatorio.gerarRelatorio();
+                donoCinema.getCinema().addRelatorio(relatorio);
+
                 Menu.mostrarMensagem("      Pressione 0 para voltar...");
                 menus.get(1).obterOpcao();
                 Menu.limparTela();

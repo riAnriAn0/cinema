@@ -1,14 +1,12 @@
 package Cinema_config;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import Pessoa.Cliente;
 import Sistema.Menu;
+import Sistema.Relatorio;
 
 public class Cinema {
     private String nome;
@@ -16,6 +14,8 @@ public class Cinema {
     private ArrayList<Filme> filmes;
     private ArrayList<Ingresso> ingressosVendidos;
     private Scanner scanner;
+    private ArrayList<Relatorio> relatorio;
+    private double valorTotal;
 
     public Cinema(String nome, Sala[] salas) {
         this.nome = nome;
@@ -23,6 +23,32 @@ public class Cinema {
         this.filmes = new ArrayList<Filme>();
         this.scanner = new Scanner(System.in);
         this.ingressosVendidos = new ArrayList<Ingresso>();
+        this.valorTotal = 0.0;
+        this.relatorio = new ArrayList<Relatorio>();
+    }
+
+    public ArrayList<Ingresso> getIngressosVendidos() {
+        return ingressosVendidos;
+    }
+
+    public void setIngressosVendidos(ArrayList<Ingresso> ingressosVendidos) {
+        this.ingressosVendidos = ingressosVendidos;
+    }
+    
+    public double getValorTotal() {
+        return this.valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+    
+    public void atualizarValorTotal(double valorTotal) {
+        this.valorTotal += valorTotal;
+    }
+
+    public void addRelatorio(Relatorio relatorio) {
+        this.relatorio.add(relatorio);
     }
 
     public void addFilme(Filme filme) {
@@ -152,7 +178,7 @@ public class Cinema {
 
     public Ingresso comprarIngresso(Cliente cliente, Sala sala, Assento assento) {
 
-        Ingresso ingresso = new Ingresso(cliente, sala, assento, 22.00);
+        Ingresso ingresso = new Ingresso(cliente, sala, assento);
 
         System.out.println("      +----------------------------.---------------+");
         System.out.println("      |           Pagamento de Ingresso           |");
@@ -175,6 +201,8 @@ public class Cinema {
         System.out.printf("      | Valor do ingresso: -------------- R$ %.2f%n",
                 ingresso.getPreco() * (1 - cliente.getDesconto()));
         System.out.println("      +-------------------------------------------+");
+
+        atualizarValorTotal(ingresso.getPreco() * (1 - ingresso.getCliente().getDesconto()));
 
         return ingresso;
     }
@@ -227,45 +255,14 @@ public class Cinema {
             System.out.println("      | Nenhum ingresso vendido até o momento.   |");
         } else {
             for (Ingresso ingresso : ingressosVendidos) {
-                System.out.printf("      | Cliente: %s, Filme: %s, Sala: %d, Assento: %s%n",
-                        ingresso.getPessoa().getNome(),
+                System.out.printf("      | Cliente: %s, Filme: %s, Sala: %d, Assento: %s Valor: R$ %.2f%n",
+                        ingresso.getCliente().getNome(),
                         ingresso.getSala().getFilme().getTitulo(),
                         ingresso.getSala().getNumSala(),
-                        ingresso.getAssento().localizacao());
+                        ingresso.getAssento().localizacao(),
+                        ingresso.getPreco() * (1 - ingresso.getCliente().getDesconto()));
             }
         }
         System.out.println("      +-------------------------------------------+");
     }
-
-    public void gerarRelatorio(){
-        String conteudo = ""; 
-        conteudo += "      +-------------------------------------------+\n";
-        conteudo += "      |                  Cinema                   |\n";
-        conteudo += "      +-------------------------------------------+\n";
-        conteudo += "      |           Relatório de Vendas             |\n";
-        conteudo += "      +-------------------------------------------+\n";
-        if (ingressosVendidos.isEmpty()) {
-            conteudo += "      | Nenhum ingresso vendido até o momento.   |";
-        } else {
-            for (Ingresso ingresso : ingressosVendidos) {
-                conteudo += String.format("      | Cliente: %s, Filme: %s, Sala: %d, Assento: %s%n",
-                        ingresso.getPessoa().getNome(),
-                        ingresso.getSala().getFilme().getTitulo(),
-                        ingresso.getSala().getNumSala(),
-                        ingresso.getAssento().localizacao());
-            }
-        }
-
-        java.util.Date data = new java.util.Date();
-        conteudo += "\n"+ data.toString();
-
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(".\\src\\relatorios\\relatorio" + System.currentTimeMillis() + ".txt"))) {
-            writer.write(conteudo);
-            System.out.println("Arquivo .txt gerado com sucesso!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

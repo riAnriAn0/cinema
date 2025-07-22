@@ -8,15 +8,14 @@ public class Cliente extends Pessoa{
     }
 
     public double getDesconto() {
-        switch (super.getCategoria()) {
-            case "Professor":
-                return 0.30; 
-            case "Estudante":
-                return 0.50; 
-            case "Idoso":
-                return 1.00; 
-            default:
-                return 0.00; 
+        if(super.getCategoria().equalsIgnoreCase("Professor")) {
+            return 0.3; 
+        } else if (super.getCategoria().equalsIgnoreCase("Estudante")) {
+            return 0.5; 
+        } else if (super.getCategoria().equalsIgnoreCase("Idoso")) {
+            return 1.0; 
+        }else{
+            return 0.0; 
         }
     }
     
