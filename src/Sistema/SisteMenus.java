@@ -14,81 +14,81 @@ public class SisteMenus {
         this.donoCinema = donoCinema;
     }
 
-    public void menuGerenciamento(){
+    public void menuGerenciamento() {
         Menu.limparTela();
-                    menus.get(1).mostrarMenu();
-                    int opGerenciarCinema = menus.get(1).obterOpcao();
-                    switch (opGerenciarCinema) {
-                        case 1:
-                            Menu.limparTela();
-                            Filme filme = donoCinema.getCinema().cadastrarFilme();
-                            if (filme != null) {
-                                donoCinema.getCinema().addFilme(filme);
-                                Menu.mostrarMensagem("      Filme cadastrado com sucesso!");
-                            } else {
-                                Menu.mostrarMensagem("      !!! Não foi possível cadastrar o filme.");
-                            }
-                            Menu.mostrarMensagem("      Pressione 0 para voltar...");
-                            menus.get(1).obterOpcao();
-                            Menu.limparTela();
-                            menuGerenciamento();
-                            break;
-                        case 2:
-                            Menu.limparTela();
-                            do {
-                                filme = donoCinema.getCinema().buscarFilme();
-                                Menu.limparTela();
-                            } while (filme == null);
+        menus.get(1).mostrarMenu();
+        int opGerenciarCinema = menus.get(1).obterOpcao();
+        switch (opGerenciarCinema) {
+            case 1:
+                Menu.limparTela();
+                Filme filme = donoCinema.getCinema().cadastrarFilme();
+                if (filme != null) {
+                    donoCinema.getCinema().addFilme(filme);
+                    Menu.mostrarMensagem("      Filme cadastrado com sucesso!");
+                } else {
+                    Menu.mostrarMensagem("      !!! Não foi possível cadastrar o filme.");
+                }
+                Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                menus.get(1).obterOpcao();
+                Menu.limparTela();
+                menuGerenciamento();
+                break;
+            case 2:
+                Menu.limparTela();
+                do {
+                    filme = donoCinema.getCinema().buscarFilme();
+                    Menu.limparTela();
+                } while (filme == null);
 
-                            donoCinema.getCinema().removerFilme(filme);
-                            Menu.mostrarMensagem("      Filme removido com sucesso!");
-                            Menu.mostrarMensagem("      Pressione 0 para voltar...");
-                            menus.get(1).obterOpcao();
-                            Menu.limparTela();
-                            menuGerenciamento();
-                            break;
-                        case 3:
-                            Menu.limparTela();
-                            donoCinema.getCinema().listarFilmes();
-                            Menu.mostrarMensagem("      Pressione 0 para voltar...");
-                            menus.get(1).obterOpcao();
-                            Menu.limparTela();
-                            menuGerenciamento();
-                            break;
-                        case 4:
-                            Menu.limparTela();
-                            donoCinema.getCinema().listarSalas();
-                            Menu.mostrarMensagem("      Pressione 0 para voltar...");
-                            menus.get(1).obterOpcao();
-                            Menu.limparTela();
-                            menuGerenciamento();
+                donoCinema.getCinema().removerFilme(filme);
+                Menu.mostrarMensagem("      Filme removido com sucesso!");
+                Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                menus.get(1).obterOpcao();
+                Menu.limparTela();
+                menuGerenciamento();
+                break;
+            case 3:
+                Menu.limparTela();
+                donoCinema.getCinema().listarFilmes();
+                Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                menus.get(1).obterOpcao();
+                Menu.limparTela();
+                menuGerenciamento();
+                break;
+            case 4:
+                Menu.limparTela();
+                donoCinema.getCinema().listarSalas();
+                Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                menus.get(1).obterOpcao();
+                Menu.limparTela();
+                menuGerenciamento();
 
-                            break;
-                        case 5:
-                            Menu.limparTela();
-                            donoCinema.getCinema().historicoVendas(); // Exibe o histórico de vendas CRIAR METODO NA CLASSE CINEMA
-                            Menu.mostrarMensagem("      Pressione 0 para voltar...");
-                            menus.get(1).obterOpcao();
-                            Menu.limparTela();
-                            menuGerenciamento();
-                            break;
+                break;
+            case 5:
+                Menu.limparTela();
+                donoCinema.getCinema().historicoVendas();
+                Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                menus.get(1).obterOpcao();
+                Menu.limparTela();
+                menuGerenciamento();
+                break;
 
-                        case 6:
-                            Menu.limparTela();
-                        // donoCinema.getCinema().gerarRelatorio(); // Método para gerar relatório de vendas CRIAR METODO NA CLASSE CINEMA
-                            Menu.mostrarMensagem("      Pressione 0 para voltar...");
-                            menus.get(1).obterOpcao();
-                            Menu.limparTela();
-                            menuGerenciamento();
-                            break;
+            case 6:
+                Menu.limparTela();
+                donoCinema.getCinema().gerarRelatorio();
+                Menu.mostrarMensagem("      Pressione 0 para voltar...");
+                menus.get(1).obterOpcao();
+                Menu.limparTela();
+                menuGerenciamento();
+                break;
 
-                        case 0:
-                            Menu.limparTela();
-                            initSistema();
-                            break;
-                        default:
-                            Menu.mostrarMensagem("      Opção inválida. Tente novamente.");
-                    }
+            case 0:
+                Menu.limparTela();
+                initSistema();
+                break;
+            default:
+                Menu.mostrarMensagem("      Opção inválida. Tente novamente.");
+        }
     }
 
     public void initSistema() {

@@ -1,5 +1,9 @@
 package Cinema_config;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -231,6 +235,37 @@ public class Cinema {
             }
         }
         System.out.println("      +-------------------------------------------+");
+    }
+
+    public void gerarRelatorio(){
+        String conteudo = ""; 
+        conteudo += "      +-------------------------------------------+\n";
+        conteudo += "      |                  Cinema                   |\n";
+        conteudo += "      +-------------------------------------------+\n";
+        conteudo += "      |           Relatório de Vendas             |\n";
+        conteudo += "      +-------------------------------------------+\n";
+        if (ingressosVendidos.isEmpty()) {
+            conteudo += "      | Nenhum ingresso vendido até o momento.   |";
+        } else {
+            for (Ingresso ingresso : ingressosVendidos) {
+                conteudo += String.format("      | Cliente: %s, Filme: %s, Sala: %d, Assento: %s%n",
+                        ingresso.getPessoa().getNome(),
+                        ingresso.getSala().getFilme().getTitulo(),
+                        ingresso.getSala().getNumSala(),
+                        ingresso.getAssento().localizacao());
+            }
+        }
+
+        java.util.Date data = new java.util.Date();
+        conteudo += "\n"+ data.toString();
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(".\\src\\relatorios\\relatorio" + System.currentTimeMillis() + ".txt"))) {
+            writer.write(conteudo);
+            System.out.println("Arquivo .txt gerado com sucesso!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
