@@ -63,7 +63,7 @@ public class Relatorio {
         conteudo += "\n"+ data.toString();
 
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(".\\src\\relatorios\\relatorio" + System.currentTimeMillis() + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./src/relatorios/relatorio" + System.currentTimeMillis() + ".txt"))) {
             writer.write(conteudo);
             System.out.println("Arquivo .txt gerado com sucesso!");
         } catch (IOException e) {
