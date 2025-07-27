@@ -84,13 +84,15 @@ public class Filme {
         this.sala = sala;
     }
 
-    public void showFilme() {
+    public void showFilme(int op) {
         System.out.println("      +---------------------------------------------------+");
         System.out.printf("      |                  %s         SALA: %2d       %n", titulo, sala);
         System.out.println("      +---------------------------------------------------+");
-        System.out.println("      | Diretor: " + diretor);
-        System.out.println("      | Gênero: " + genero);
-        System.out.println("      | Duração: " + duracao + " min");
-        System.out.println("      | Sinopse: " + sinopse);
+        if(op == 1){
+            System.out.println("      | Diretor: " + diretor);
+            System.out.println("      | Gênero: " + genero);
+            System.out.println("      | Duração: " + duracao + " min");
+            System.out.println("      | Sinopse: " + sinopse);
+        }
     }
 }

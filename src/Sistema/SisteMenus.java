@@ -71,7 +71,7 @@ public class SisteMenus {
         int opGerenciarCinema = menus.get(1).obterOpcao();
         switch (opGerenciarCinema) {
             case 1:
-                // Cadastrar filme
+                // Cadastrar filme // !!!!!!!!!!!!!!!!  COMPROBLEMAS CONCERTAR AINDA  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
                 Menu.limparTela();
                 Filme filme = donoCinema.getFirst().getCinema().cadastrarFilme();
                 if (filme != null) {
@@ -101,6 +101,10 @@ public class SisteMenus {
                 menuGerenciamento();
                 break;
             case 3:
+                // Alocar filme a sala
+                Menu.limparTela();
+                donoCinema.getFirst().getCinema().alocarFilme();
+            case 4:
                 // Listar filmes
                 Menu.limparTela();
                 donoCinema.getFirst().getCinema().listarFilmes();
@@ -109,7 +113,7 @@ public class SisteMenus {
                 Menu.limparTela();
                 menuGerenciamento();
                 break;
-            case 4:
+            case 5:
                 // Listar salas
                 Menu.limparTela();
                 donoCinema.getFirst().getCinema().listarSalas();
@@ -119,7 +123,7 @@ public class SisteMenus {
                 menuGerenciamento();
 
                 break;
-            case 5:
+            case 6:
                 // Histórico de vendas
                 Menu.limparTela();
                 donoCinema.getFirst().getCinema().historicoVendas();
@@ -129,7 +133,7 @@ public class SisteMenus {
                 menuGerenciamento();
                 break;
 
-            case 6:
+            case 7:
                 // Gerar relatório
                 LocalTime horaAtual = LocalTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -224,16 +228,13 @@ public class SisteMenus {
                 case 3:
                     // Gerenciar cinema
                     if(!verificarLogin()) {
-                        return;
+                        break;
                     }
                     menuGerenciamento();
                     break;
-                case 4:
-                    // Chamar método para gerenciar pessoas
-                    break;
                 case 0:
                     Menu.mostrarMensagem("Obrigado por usar o sistema ^_^ !!!");
-                    break;
+                    return;
                 default:
                     System.out.println("Opção inválida.");
             }

@@ -9,15 +9,15 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // Criando os menus
-        Menu menuPrincipal = new Menu("Menu Principal", 4, new String[] {
+        Menu menuPrincipal = new Menu("Menu Principal", 3, new String[] {
                 "Filmes Em Cartaz",
                 "Comprar Ingresso",
                 "Gerenciar Cinema",
-                "Gerenciar Pessoas",
         }, new Scanner(System.in));
-        Menu menuGerenciarCinema = new Menu("Gerenciar Cinema", 6, new String[] {
+        Menu menuGerenciarCinema = new Menu("Gerenciar Cinema", 7, new String[] {
                 "Adicionar Filme",
                 "Remover Filme",
+                "Alocar Filme a Sala",
                 "Listar Filmes",
                 "Listar Salas",
                 "Historico de vendas",

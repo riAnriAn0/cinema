@@ -91,11 +91,11 @@ public class Cinema {
         if (filmes.isEmpty()) {
             System.out.println("Nenhum filme cadastrado.");
         } else {
-            System.out.println("      +---------------------------------------------------+");
-            System.out.println("      |                  Filmes em Cartaz                 |");
+            System.out.println("      +-------------------------------+");
+            System.out.println("      |            Filmes             |");
             for (int i = 0; i < filmes.size(); i++) {
                 Filme filme = filmes.get(i);
-                filme.showFilme();
+                filme.showFilme(0);
             }
         }
     }
@@ -109,7 +109,7 @@ public class Cinema {
             for (int i = 0; i < filmes.size(); i++) {
                 Filme filme = filmes.get(i);
                 if (filme.isDisponiveis()) {
-                    filme.showFilme();
+                    filme.showFilme(1);
                 }
             }
         }
@@ -288,6 +288,45 @@ public class Cinema {
                         ingresso.getPreco() * (1 - ingresso.getCliente().getDesconto()));
             }
         }
+        System.out.println("      +-------------------------------------------+");
+    }
+
+    public void alocarFilme() {
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      |           Alocar Filme em Sala            |");
+        System.out.println("      +-------------------------------------------+");
+        listarFilmes();
+        Filme filme = buscarFilme();
+        if (filme == null) {
+            System.out.println("      !!! Filme não encontrado.");
+            return;
+        }
+        
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      | Filme selecionado: " + filme.getTitulo() + " |");
+        System.out.println("      +-------------------------------------------+");
+        
+        listarSalas();
+        
+        System.out.print("      | Digite o número da sala para alocar o filme: ");
+        int numSala = Integer.parseInt(scanner.nextLine());
+        if (numSala < 1 || numSala > salas.length) {
+            System.out.println("      !!! Sala inválida. Deve ser entre 1 e " + salas.length + ".");
+            return;
+        }
+
+        Sala sala = salas[numSala - 1];
+
+        if(sala.getFilme() != null) {
+            sala.getFilme().setDisponiveis(false);
+            return;
+        }
+        filme.setSala(numSala);
+        filme.setDisponiveis(true);
+        sala.setFilme(filme);
+
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      | Filme alocado na sala " + sala.getNumSala() + " com sucesso! |");
         System.out.println("      +-------------------------------------------+");
     }
 }
