@@ -120,13 +120,20 @@ public class SisteMenus {
                     break;
                 case 2:
                     Menu.limparTela();
-                    Cliente cliente = cinema.cadastraCliente();
                     Sala sala = null;
                     Assento assento = null;
+                    Cliente cliente = null;
+
+                    do {
+                        Menu.limparTela();
+                        cliente = cinema.cadastraCliente();
+                    } while (cliente == null);
+
                     do {
                         Menu.limparTela();
                         sala = cinema.selecionarSala();
                     } while (sala == null);
+
                     do {
                         Menu.limparTela();
                         sala.showAssentos();

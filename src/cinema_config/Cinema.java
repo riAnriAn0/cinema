@@ -101,14 +101,13 @@ public class Cinema {
         }
     }
 
-    public Cliente cadastraCliente() {
+    public Cliente cadastraCliente() throws NumberFormatException {
         String nome, categoria;
         int idade;
         boolean continueInput = false;
         Cliente cliente = null;
 
         do {
-            try {
                 System.out.println("      +-------------------------------------------+");
                 System.out.println("      |              Cadastro de Cliente          |");
                 System.out.println("      +-------------------------------------------+");
@@ -116,22 +115,19 @@ public class Cinema {
                 nome = scanner.nextLine();
                 System.out.print("      | Digite a categoria do cliente (Professor, Normal, Estudante): ");
                 categoria = scanner.nextLine();
-                System.out.print(
-                        "      | Digite a idade do cliente: ");
+            try {
+                System.out.print("      | Digite a idade do cliente: ");
                 idade = Integer.parseInt(scanner.nextLine());
                 cliente = new Cliente(nome, categoria, idade);
                 System.out.println("      +-------------------------------------------+");
-
-            } catch (InputMismatchException e) {
+                
+            } catch (NumberFormatException e) {
                 System.out.println("      !!! Entrada inválida. Tente novamente.");
-                scanner.nextLine();
-                continueInput = true;
-                Menu.limparTela();
                 continue;
             }
         } while (continueInput);
-        return cliente;
 
+        return cliente;
     }
 
     public Sala selecionarSala() {
@@ -151,16 +147,31 @@ public class Cinema {
         return salas[numeroSala - 1];
     }
 
-    public Assento selecionarAssento(Sala sala) {
+    public Assento selecionarAssento(Sala sala) throws NumberFormatException {
+        // boolean continueInput = false;
+
         System.out.print("      | Digite a fileira do assento (A - T): ");
         char fileira = scanner.nextLine().toUpperCase().charAt(0);
+       
         if (fileira < 'A' || fileira > 'T') {
             System.out.println("      !!! Fileira inválida. Deve ser entre A e T.");
             return null;
         }
 
-        System.out.print("      | Digite o número do assento (1 - 10): ");
-        int numeroAssento = Integer.parseInt(scanner.nextLine());
+        int numeroAssento = 0;
+
+        do {
+            System.out.print("      | Digite o número do assento (1 - 10): ");
+            try {
+                numeroAssento = Integer.parseInt(scanner.nextLine());
+                if (numeroAssento < 1 || numeroAssento > 10) {
+                    System.out.println("      !!! Número do assento inválido. Deve ser entre 1 e 10.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("      !!! Entrada inválida. Tente novamente.");
+            }
+        } while (numeroAssento < 1 || numeroAssento > 10);
+
         if (numeroAssento < 1 || numeroAssento > 10) {
             System.out.println("      !!! Número do assento inválido. Deve ser entre 1 e 10.");
             return null;
