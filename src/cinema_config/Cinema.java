@@ -57,13 +57,14 @@ public class Cinema {
 
     public void removerFilme(Filme filme) {
         filmes.remove(filme);
+        this.salas[filme.getSala() - 1].setFilme(null);
     }
 
     public void listarSalas() {
         System.out.println("      +---------------------------------------------------+");
         System.out.println("      |                  Salas do Cinema                  |");
         for (Sala sala : salas) {
-            System.out.printf("      | Sala %d: %s%n", sala.getNumSala(), sala.getFilme().getTitulo());
+            System.out.printf("      | Sala %d: %s%n", sala.getNumSala(), sala.getFilme() != null ? sala.getFilme().getTitulo() : "Sem filme em exibição");
             System.out.println("      +---------------------------------------------------+");
         }
     }
@@ -87,6 +88,19 @@ public class Cinema {
     }
 
     public void listarFilmes() {
+        if (filmes.isEmpty()) {
+            System.out.println("Nenhum filme cadastrado.");
+        } else {
+            System.out.println("      +---------------------------------------------------+");
+            System.out.println("      |                  Filmes em Cartaz                 |");
+            for (int i = 0; i < filmes.size(); i++) {
+                Filme filme = filmes.get(i);
+                filme.showFilme();
+            }
+        }
+    }
+
+    public void listarFilmesDisponiveis() {
         if (filmes.isEmpty()) {
             System.out.println("Nenhum filme cadastrado.");
         } else {
@@ -135,7 +149,7 @@ public class Cinema {
         System.out.println("      +-------------------------------------------+");
         System.out.println("      |           Selecione uma Sala              |");
         for (Sala sala : salas) {
-            System.out.printf("      | Sala %d: %s%n", sala.getNumSala(), sala.getFilme().getTitulo());
+            System.out.printf("      | Sala %d: %s%n", sala.getNumSala(), sala.getFilme() != null ? sala.getFilme().getTitulo() : "Sem filme em exibição");
             System.out.println("      +-------------------------------------------+");
         }
         System.out.print("      | Digite o número da sala desejada: ");

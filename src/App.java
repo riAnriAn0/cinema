@@ -90,7 +90,12 @@ public class App {
         cinema.addFilme(filme10);
 
         //Admin Dono do cinema
-        Admin donoCinema = new Admin("Rian", "Admin", 20, "rian123", "senha123", cinema);
+        Admin donoCinema1 = new Admin("Rian", 20, "rian", 1234, cinema);
+        Admin donoCinema2 = new Admin("Gian", 20, "gian", 1234, cinema);
+
+        ArrayList<Admin> donoCinema = new ArrayList<>();
+        donoCinema.add(donoCinema1);
+        donoCinema.add(donoCinema2);
 
         // Criando o sistema de menus
         SisteMenus sistemaMenus = new SisteMenus(menus, donoCinema);

@@ -25,7 +25,7 @@ public class Filme {
         this.genero = genero;
         this.diretor = diretor;
         this.sinopse = sinopse;
-        this.disponiveis = false;
+        this.disponiveis = false; 
     }
 
     public String getTitulo() {
@@ -74,6 +74,14 @@ public class Filme {
 
     public void setDisponiveis(boolean disponiveis) {
         this.disponiveis = disponiveis;
+    }
+
+    public int getSala() {
+        return sala;
+    }
+
+    public void setSala(int sala) {
+        this.sala = sala;
     }
 
     public void showFilme() {

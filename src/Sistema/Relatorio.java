@@ -12,6 +12,7 @@ public class Relatorio {
     private String data;
     private String hora;
     private double valorTotal;
+    private static int id = 0;
     private ArrayList<Ingresso> ingressosVendidos = new ArrayList<>();
 
     public Relatorio(String nomeRelatorio, String data, String hora, double valorTotal, ArrayList<Ingresso> ingressosVendidos) {
@@ -20,6 +21,7 @@ public class Relatorio {
         this.hora = hora;
         this.ingressosVendidos = ingressosVendidos;
         this.valorTotal = valorTotal;
+        id++;
     }
 
     public void gerarRelatorio(){
@@ -62,10 +64,9 @@ public class Relatorio {
         java.util.Date data = new java.util.Date();
         conteudo += "\n"+ data.toString();
 
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(".\\cinema\\relatorios\\" + System.currentTimeMillis() + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(".\\cinema\\relatorios\\relatorio_" + Relatorio.id + ".txt"))) {
             writer.write(conteudo);
-            System.out.println("Arquivo .txt gerado com sucesso!");
+            System.out.println("Arquivo relatorio_" + Relatorio.id + ".txt gerado com sucesso!");
         } catch (IOException e) {
             e.printStackTrace();
         }

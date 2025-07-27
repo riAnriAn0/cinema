@@ -3,17 +3,66 @@ package Sistema;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import Cinema_config.*;
 import Pessoa.*;
 
 public class SisteMenus {
     private ArrayList<Menu> menus;
-    private Admin donoCinema;
+    private ArrayList<Admin> donoCinema;
 
-    public SisteMenus(ArrayList<Menu> menus, Admin donoCinema) {
+    public SisteMenus(ArrayList<Menu> menus, ArrayList<Admin> donoCinema) {
         this.menus = menus;
         this.donoCinema = donoCinema;
+    }
+
+    public boolean verificarLogin() throws InputMismatchException {
+        Scanner scanner = new Scanner(System.in);
+        String login = "";
+        int senha = 0;
+        
+        do{
+            Menu.limparTela();
+            System.out.println("      +---------------------------------------------------+");
+            System.out.println("      |               Configurações Cinema                |");
+            System.out.println("      +---------------------------------------------------+");
+            
+            do{
+                try {
+                    System.out.print("      | Digite o login: ");
+                    login = scanner.nextLine();
+                    System.out.print("      | Digite a senha: ");
+                    senha = scanner.nextInt();
+                    scanner.nextLine();
+
+                } catch (InputMismatchException e) {
+                    Menu.mostrarMensagem("      !!! Entrada inválida. Tente novamente.");
+                    scanner.nextLine(); 
+                }
+                break;
+            }while (true);
+
+            for (Admin admin : donoCinema) {
+                if (admin.getLogin().equals(login) && admin.getSenha() == senha) {
+                    Menu.mostrarMensagem("      Login realizado com sucesso!");
+                    return true;
+                }
+            }
+            
+            Menu.mostrarMensagem("      !!! Login ou senha inválidos. Tente novamente.");
+            
+            System.out.println("      Pressione 0 para sair ou 1 para tentar novamente...");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
+            
+            if (opcao == 0) {
+                Menu.limparTela();
+                System.out.println("      Obrigado por usar o sistema ^_^ !!!");
+                return false;
+            }
+        } while (true);
     }
 
     public void menuGerenciamento() {
@@ -22,10 +71,11 @@ public class SisteMenus {
         int opGerenciarCinema = menus.get(1).obterOpcao();
         switch (opGerenciarCinema) {
             case 1:
+                // Cadastrar filme
                 Menu.limparTela();
-                Filme filme = donoCinema.getCinema().cadastrarFilme();
+                Filme filme = donoCinema.getFirst().getCinema().cadastrarFilme();
                 if (filme != null) {
-                    donoCinema.getCinema().addFilme(filme);
+                    donoCinema.getFirst().getCinema().addFilme(filme);
                     Menu.mostrarMensagem("      Filme cadastrado com sucesso!");
                 } else {
                     Menu.mostrarMensagem("      !!! Não foi possível cadastrar o filme.");
@@ -36,13 +86,14 @@ public class SisteMenus {
                 menuGerenciamento();
                 break;
             case 2:
+                // Remover filme
                 Menu.limparTela();
                 do {
-                    filme = donoCinema.getCinema().buscarFilme();
+                    filme = donoCinema.getFirst().getCinema().buscarFilme();
                     Menu.limparTela();
                 } while (filme == null);
 
-                donoCinema.getCinema().removerFilme(filme);
+                donoCinema.getFirst().getCinema().removerFilme(filme);
                 Menu.mostrarMensagem("      Filme removido com sucesso!");
                 Menu.mostrarMensagem("      Pressione 0 para voltar...");
                 menus.get(1).obterOpcao();
@@ -50,16 +101,18 @@ public class SisteMenus {
                 menuGerenciamento();
                 break;
             case 3:
+                // Listar filmes
                 Menu.limparTela();
-                donoCinema.getCinema().listarFilmes();
+                donoCinema.getFirst().getCinema().listarFilmes();
                 Menu.mostrarMensagem("      Pressione 0 para voltar...");
                 menus.get(1).obterOpcao();
                 Menu.limparTela();
                 menuGerenciamento();
                 break;
             case 4:
+                // Listar salas
                 Menu.limparTela();
-                donoCinema.getCinema().listarSalas();
+                donoCinema.getFirst().getCinema().listarSalas();
                 Menu.mostrarMensagem("      Pressione 0 para voltar...");
                 menus.get(1).obterOpcao();
                 Menu.limparTela();
@@ -67,8 +120,9 @@ public class SisteMenus {
 
                 break;
             case 5:
+                // Histórico de vendas
                 Menu.limparTela();
-                donoCinema.getCinema().historicoVendas();
+                donoCinema.getFirst().getCinema().historicoVendas();
                 Menu.mostrarMensagem("      Pressione 0 para voltar...");
                 menus.get(1).obterOpcao();
                 Menu.limparTela();
@@ -76,14 +130,15 @@ public class SisteMenus {
                 break;
 
             case 6:
+                // Gerar relatório
                 LocalTime horaAtual = LocalTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                 Menu.limparTela();
 
-                Relatorio relatorio = new Relatorio("Relatorio de vendas", new java.util.Date().toString(), horaAtual.format(formatter), donoCinema.getCinema().getValorTotal(), donoCinema.getCinema().getIngressosVendidos());
+                Relatorio relatorio = new Relatorio("Relatorio de vendas", new java.util.Date().toString(), horaAtual.format(formatter), donoCinema.getFirst().getCinema().getValorTotal(), donoCinema.getFirst().getCinema().getIngressosVendidos());
 
                 relatorio.gerarRelatorio();
-                donoCinema.getCinema().addRelatorio(relatorio);
+                donoCinema.getFirst().getCinema().addRelatorio(relatorio);
 
                 Menu.mostrarMensagem("      Pressione 0 para voltar...");
                 menus.get(1).obterOpcao();
@@ -92,6 +147,7 @@ public class SisteMenus {
                 break;
 
             case 0:
+
                 Menu.limparTela();
                 initSistema();
                 break;
@@ -102,7 +158,7 @@ public class SisteMenus {
 
     public void initSistema() {
 
-        Cinema cinema = donoCinema.getCinema();
+        Cinema cinema = donoCinema.getFirst().getCinema();
 
         int op = -1;
         while (op != 0) {
@@ -111,14 +167,16 @@ public class SisteMenus {
             op = menus.getFirst().obterOpcao();
             switch (op) {
                 case 1:
-                    Menu.limparTela();
-                    cinema.listarFilmes();
+                // Listar filmes disponíveis
+                Menu.limparTela();
+                    cinema.listarFilmesDisponiveis();
                     Menu.mostrarMensagem("      Pressione 0 para voltar...");
                     menus.getFirst().obterOpcao();
                     Menu.limparTela();
                     initSistema();
                     break;
                 case 2:
+                    // Comprar ingresso
                     Menu.limparTela();
                     Sala sala = null;
                     Assento assento = null;
@@ -164,6 +222,10 @@ public class SisteMenus {
 
                     break;
                 case 3:
+                    // Gerenciar cinema
+                    if(!verificarLogin()) {
+                        return;
+                    }
                     menuGerenciamento();
                     break;
                 case 4:
