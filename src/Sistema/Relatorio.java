@@ -64,7 +64,7 @@ public class Relatorio {
         java.util.Date data = new java.util.Date();
         conteudo += "\n"+ data.toString();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(".\\cinema\\relatorios\\relatorio_" + Relatorio.id + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(".\\src\\relatorios\\relatorio_" + Relatorio.id + ".txt"))) {
             writer.write(conteudo);
             System.out.println("Arquivo relatorio_" + Relatorio.id + ".txt gerado com sucesso!");
         } catch (IOException e) {
