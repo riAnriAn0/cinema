@@ -67,12 +67,15 @@ public class SisteMenus {
 
     public void menuGerenciamento() {
         Menu.limparTela();
-        menus.get(1).mostrarMenu();
-
+        
         int opGerenciarCinema = -1;
-
+        
         while (opGerenciarCinema != 0) {
-            opGerenciarCinema = menus.getFirst().obterOpcao();
+
+            Menu.limparTela();
+            menus.get(1).mostrarMenu();
+            opGerenciarCinema = menus.get(1).obterOpcao();
+            
             switch (opGerenciarCinema) {
                 case 1:
                     // Cadastrar filme

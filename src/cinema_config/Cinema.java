@@ -57,7 +57,9 @@ public class Cinema {
 
     public void removerFilme(Filme filme) {
         filmes.remove(filme);
-        this.salas[filme.getSala() - 1].setFilme(null);
+        if(filme.isDisponiveis()){
+            salas[filme.getSala() - 1].setFilme(null);
+        }
     }
 
     public void listarSalas() {
@@ -109,7 +111,7 @@ public class Cinema {
             for (int i = 0; i < filmes.size(); i++) {
                 Filme filme = filmes.get(i);
                 if (filme.isDisponiveis()) {
-                    filme.showFilme(1);
+                    filme.showFilme(0);
                 }
             }
         }
@@ -162,7 +164,6 @@ public class Cinema {
     }
 
     public Assento selecionarAssento(Sala sala) throws NumberFormatException {
-        // boolean continueInput = false;
 
         System.out.print("      | Digite a fileira do assento (A - T): ");
         char fileira = scanner.nextLine().toUpperCase().charAt(0);
@@ -297,34 +298,61 @@ public class Cinema {
         System.out.println("      |           Alocar Filme em Sala            |");
         System.out.println("      +-------------------------------------------+");
         listarFilmes();
-        Filme filme = buscarFilme();
-        if (filme == null) {
-            System.out.println("      !!! Filme não encontrado.");
-            return;
-        }
-        
+        Filme novoFilme = buscarFilme();
+        do{
+            if (novoFilme == null) {
+                System.out.println("      !!! Filme não encontrado. Tente novamente.");
+                novoFilme = buscarFilme();
+            }
+            Menu.limparTela();
+        }while (novoFilme == null);
+
+        Menu.limparTela();
         System.out.println("      +-------------------------------------------+");
-        System.out.println("      | Filme selecionado: " + filme.getTitulo() + " |");
+        System.out.println("      | Filme selecionado: " + novoFilme.getTitulo() + " |");
         System.out.println("      +-------------------------------------------+");
         
         listarSalas();
         
         System.out.print("      | Digite o número da sala para alocar o filme: ");
         int numSala = Integer.parseInt(scanner.nextLine());
+        
         if (numSala < 1 || numSala > salas.length) {
             System.out.println("      !!! Sala inválida. Deve ser entre 1 e " + salas.length + ".");
-            return;
         }
+
+        System.out.println("      +-------------------------------------------+");
+        System.out.println("      | Sala selecionada: " + salas[numSala - 1].getNumSala() + " |");
+        System.out.println("      +-------------------------------------------+");
 
         Sala sala = salas[numSala - 1];
 
-        if(sala.getFilme() != null) {
-            sala.getFilme().setDisponiveis(false);
-            return;
+        Filme filmeAntigo = sala.getFilme();
+        Sala salaAntiga = salas[filmeAntigo.getSala() - 1];
+
+        if(novoFilme.isDisponiveis() && filmeAntigo != null) {
+            novoFilme.setSala(numSala);
+            novoFilme.setDisponiveis(true);
+            sala.setFilme(novoFilme);
+            filmeAntigo.setDisponiveis(false);
+            filmeAntigo.setSala(0);
+            salaAntiga.setFilme(null);
+        }else if(novoFilme.isDisponiveis() && filmeAntigo == null) {
+            novoFilme.setSala(numSala);
+            novoFilme.setDisponiveis(true);
+            sala.setFilme(novoFilme);
+        }else if(!novoFilme.isDisponiveis() && filmeAntigo == null) {
+            novoFilme.setSala(numSala);
+            novoFilme.setDisponiveis(true);
+            sala.setFilme(novoFilme);
+        } else if(!novoFilme.isDisponiveis() && filmeAntigo != null) {
+            novoFilme.setSala(numSala);
+            novoFilme.setDisponiveis(true);
+            sala.setFilme(novoFilme);
+            filmeAntigo.setDisponiveis(false);
+            filmeAntigo.setSala(0);
+            salaAntiga.setFilme(null);
         }
-        filme.setSala(numSala);
-        filme.setDisponiveis(true);
-        sala.setFilme(filme);
 
         System.out.println("      +-------------------------------------------+");
         System.out.println("      | Filme alocado na sala " + sala.getNumSala() + " com sucesso! |");
