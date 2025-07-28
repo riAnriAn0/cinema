@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import Cinema_config.*;
+import cinema_config.*;
 import Pessoa.*;
 
 public class SisteMenus {

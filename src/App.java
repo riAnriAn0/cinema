@@ -1,4 +1,4 @@
-import Cinema_config.*;
+import cinema_config.*;
 import Sistema.Menu;
 import Sistema.SisteMenus;
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class App {
         Sala[] salas = { sala1, sala2, sala3, sala4, sala5 };
         
         // Criando o cinema
-        Cinema cinema = new Cinema("Absolute Cinema", salas);
+        Cinema cinema = new Cinema( salas);
         
         // Adicionando filmes ao cinema
         cinema.addFilme(filme1);

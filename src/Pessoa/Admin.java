@@ -1,6 +1,6 @@
 package Pessoa;
 
-import Cinema_config.Cinema;
+import cinema_config.Cinema;
 
 public class Admin extends Pessoa {
     private String login;

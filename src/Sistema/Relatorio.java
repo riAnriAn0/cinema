@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import Cinema_config.Ingresso;
+import cinema_config.Ingresso;
 import java.util.ArrayList;
 
 public class Relatorio {

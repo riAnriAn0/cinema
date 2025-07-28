@@ -1,15 +1,12 @@
-package Cinema_config;
-
+package cinema_config;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import Pessoa.Cliente;
 import Sistema.Menu;
 import Sistema.Relatorio;
 
 public class Cinema {
-    private String nome;
     private Sala[] salas;
     private ArrayList<Filme> filmes;
     private ArrayList<Ingresso> ingressosVendidos;
@@ -17,8 +14,7 @@ public class Cinema {
     private ArrayList<Relatorio> relatorio;
     private double valorTotal;
 
-    public Cinema(String nome, Sala[] salas) {
-        this.nome = nome;
+    public Cinema(Sala[] salas) {
         this.salas = salas;
         this.filmes = new ArrayList<Filme>();
         this.scanner = new Scanner(System.in);

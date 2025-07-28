@@ -1,4 +1,4 @@
-package Cinema_config;
+package cinema_config;
 
 public class Assento{
     private char fileiera;
