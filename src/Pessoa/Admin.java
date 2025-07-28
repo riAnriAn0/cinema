@@ -6,7 +6,7 @@ public class Admin extends Pessoa {
     private String login;
     private int senha;
     private Cinema cinema;
-    private static final String CATEGORIA = "Admin";
+    private static final String CATEGORIA = "Admin"; /// login: rian senha: 1234 ou gian senha: 1234
 
     public Admin(String nome, int idade, String login, int senha, Cinema cinema) {
         super(nome, CATEGORIA, idade);
