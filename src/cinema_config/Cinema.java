@@ -324,31 +324,18 @@ public class Cinema {
         Sala sala = salas[numSala - 1];
 
         Filme filmeAntigo = sala.getFilme();
-        Sala salaAntiga = salas[filmeAntigo.getSala() - 1];
+        Sala salaAntiga = filmeAntigo != null ? salas[filmeAntigo.getSala() - 1] : null;
 
-        if(novoFilme.isDisponiveis() && filmeAntigo != null) {
-            novoFilme.setSala(numSala);
-            novoFilme.setDisponiveis(true);
-            sala.setFilme(novoFilme);
-            filmeAntigo.setDisponiveis(false);
-            filmeAntigo.setSala(0);
-            salaAntiga.setFilme(null);
-        }else if(novoFilme.isDisponiveis() && filmeAntigo == null) {
-            novoFilme.setSala(numSala);
-            novoFilme.setDisponiveis(true);
-            sala.setFilme(novoFilme);
-        }else if(!novoFilme.isDisponiveis() && filmeAntigo == null) {
-            novoFilme.setSala(numSala);
-            novoFilme.setDisponiveis(true);
-            sala.setFilme(novoFilme);
-        } else if(!novoFilme.isDisponiveis() && filmeAntigo != null) {
-            novoFilme.setSala(numSala);
-            novoFilme.setDisponiveis(true);
-            sala.setFilme(novoFilme);
+        if (filmeAntigo != null) {
+          
             filmeAntigo.setDisponiveis(false);
             filmeAntigo.setSala(0);
             salaAntiga.setFilme(null);
         }
+      
+        novoFilme.setSala(numSala);
+        novoFilme.setDisponiveis(true);
+        sala.setFilme(novoFilme);
 
         System.out.println("      +-------------------------------------------+");
         System.out.println("      | Filme alocado na sala " + sala.getNumSala() + " com sucesso! |");
