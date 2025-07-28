@@ -48,7 +48,7 @@ O objetivo do projeto é desenvolver um sistema orientado a objetos em **Java** 
   - 10 cadeiras por fileira
 - Cada sala exibe um único filme por vez
 - Admin 
-  - login: rian ou gean 
+  - login: rian ou gian 
   - senha: 1234
 ---
 
