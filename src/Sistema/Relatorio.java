@@ -12,7 +12,7 @@ public class Relatorio {
     private String data;
     private String hora;
     private double valorTotal;
-    private static int id = 0;
+    private static int id = 1;
     private ArrayList<Ingresso> ingressosVendidos = new ArrayList<>();
 
     public Relatorio(String nomeRelatorio, String data, String hora, double valorTotal, ArrayList<Ingresso> ingressosVendidos) {
