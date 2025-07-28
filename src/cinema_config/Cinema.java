@@ -232,7 +232,7 @@ public class Cinema {
         return ingresso;
     }
 
-    public Filme cadastrarFilme() throws InputMismatchException {
+    public Filme cadastrarFilme() throws NumberFormatException {
         String titulo = null, diretor = null, genero = null, sinopse = null;
         int duracao = 0;
         boolean continueInput = true;
@@ -249,16 +249,17 @@ public class Cinema {
                 System.out.print("      | Digite o diretor do filme: ");
                 diretor = scanner.nextLine();
                 System.out.print("      | Digite a duração do filme (em MIN): ");
-                duracao = scanner.nextInt();
+                duracao = Integer.parseInt(scanner.nextLine());
                 System.out.print("      | Digite a sinopse do filme: ");
                 sinopse = scanner.nextLine();
-
-            } catch (InputMismatchException e) {
+                
+                continueInput = false;
+                
+            } catch (NumberFormatException e) {
                 System.out.println("      !!! Entrada inválida. Tente novamente.");
-                scanner.nextLine();
+                System.out.println(e.getMessage());
                 Menu.limparTela();
                 continueInput = true;
-                continue;
             }
         } while (continueInput);
         scanner.nextLine();
